@@ -71,7 +71,7 @@
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-1">Bank Dearness Allowance (%) in Joining Month</label>
                         <div class="relative">
-                            <input type="number" id="bankDA" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-bankNavy transition shadow-inner font-medium text-lg" value="15.77" step="0.01">
+                            <input type="number" id="bankDA" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-bankNavy transition shadow-inner font-medium text-lg" value="25.7" step="0.01">
                             <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 font-bold">%</span>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
             <div id="slipWrapper" class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-slate-100 hidden opacity-0 transition-opacity duration-500">
                 
                 <!-- Pre-calculation info -->
-                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8">
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8 hidden">
                     <h3 class="text-xs font-bold text-blue-900 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-shield-alt"></i> Military Pay Protection Summary</h3>
                     <div class="flex justify-between items-center text-sm mb-2">
                         <span class="text-slate-700 font-medium">Total Military Basic + DA:</span>
@@ -113,57 +113,52 @@
                     <div class="text-center mb-8 border-b-2 border-slate-300 pb-6 relative">
                         <i class="fas fa-check-circle text-green-500 text-4xl absolute left-0 top-2 hidden md:block"></i>
                         <h2 class="text-2xl md:text-3xl font-black text-bankNavy tracking-tight">SALARY ESTIMATE</h2>
-                        <p class="text-sm font-bold text-slate-500 mt-2 tracking-widest uppercase">12th BPS • Clerical Cadre</p>
+                        <p class="text-sm font-bold text-slate-500 mt-2 tracking-widest uppercase">12th BPS • Clerical Cadre (CSA)</p>
                     </div>
 
-                    <div class="space-y-5">
-                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-3">
-                            <div>
-                                <p class="font-bold text-slate-800 text-lg">Bank Basic Pay</p>
-                                <p class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded inline-block mt-1">Fitted at Stage <span id="txtStage"></span></p>
-                            </div>
-                            <span class="font-black text-xl text-slate-800" id="slipBasic">₹0</span>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2">
+                            <span class="text-slate-600 font-medium">Basic Pay</span>
+                            <span class="font-black text-slate-800" id="slipBasic">₹0.00</span>
                         </div>
 
-                        <div class="flex justify-between items-center text-base">
-                            <span class="text-slate-600 font-medium">Special Pay</span>
-                            <span class="font-bold text-slate-700" id="slipSpecialPay">₹0</span>
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2" id="pqpRow">
+                            <span class="text-slate-600 font-medium">PQP</span>
+                            <span class="font-bold text-slate-700" id="slipPQP">₹0.00</span>
                         </div>
 
-                        <div class="flex justify-between items-center text-base">
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2" id="csaRow">
+                            <span class="text-slate-600 font-medium">Special Pay (CSA)</span>
+                            <span class="font-bold text-slate-700" id="slipSpecialPay">₹1,970.00</span>
+                        </div>
+
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2">
                             <span class="text-slate-600 font-medium">Special Allowance <span class="text-xs font-bold text-slate-400 ml-1">(26.5%)</span></span>
-                            <span class="font-bold text-slate-700" id="slipSplAllow">₹0</span>
+                            <span class="font-bold text-slate-700" id="slipSplAllow">₹0.00</span>
                         </div>
 
-                        <div class="flex justify-between items-center text-base">
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2">
                             <span class="text-slate-600 font-medium">Transport Allowance</span>
-                            <span class="font-bold text-slate-700" id="slipTA">₹850</span>
+                            <span class="font-bold text-slate-700" id="slipTA">₹850.00</span>
                         </div>
 
-                        <div class="flex justify-between items-center bg-amber-50 p-3 rounded-lg border border-amber-100 hidden" id="pqpRow">
+                        <div class="flex justify-between items-center border-b border-slate-200 border-dashed pb-2 pt-2">
                             <div>
-                                <p class="text-sm font-bold text-amber-900">Professional Qualification Pay</p>
-                                <p class="text-xs text-amber-700 font-medium mt-0.5">Graduation increments adjusted at Max Scale</p>
+                                <p class="text-slate-600 font-medium">Dearness Allowance</p>
+                                <p class="text-[10px] font-medium text-slate-500 leading-tight">(on Basic + PQP + Special Pay + Special Allowance + Transport)</p>
                             </div>
-                            <span class="font-black text-amber-900 text-lg" id="slipPQP">₹0</span>
+                            <span class="font-bold text-slate-700" id="slipDA">₹0.00</span>
                         </div>
 
-                        <div class="flex justify-between items-center pt-3">
-                            <div>
-                                <p class="font-bold text-slate-800 text-lg">Dearness Allowance</p>
-                                <p class="text-[11px] font-medium text-slate-500 mt-1 leading-relaxed max-w-[220px]">Includes DA on: Basic, Special Pay, Spl. Allowance, Transport Allowance & PQP.</p>
-                            </div>
-                            <span class="font-black text-xl text-slate-800" id="slipDA">₹0</span>
+                        <div class="flex justify-between items-center pt-2">
+                            <span class="text-slate-600 font-medium">House Rent Allowance <span class="text-xs font-bold text-slate-400 ml-1">(10.25%)</span></span>
+                            <span class="font-bold text-slate-700" id="slipHRA">₹0.00</span>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t-[3px] border-slate-800 flex justify-between items-center bg-green-50 p-4 rounded-lg">
-                        <span class="text-xl md:text-2xl font-black text-slate-800 uppercase tracking-wider">Gross Salary</span>
-                        <span class="text-3xl md:text-4xl font-black text-green-700" id="slipGross">₹0</span>
-                    </div>
-                    
-                    <div class="mt-6 text-center">
-                        <p class="text-xs font-medium text-slate-400">* Note: HRA or Lease Accommodation is provided extra as per posting location.</p>
+                    <div class="mt-8 pt-4 border-t-[3px] border-slate-800 flex justify-between items-center bg-green-50 p-4 rounded-lg">
+                        <span class="text-xl md:text-2xl font-black text-slate-800 uppercase tracking-wider">Total Salary</span>
+                        <span class="text-2xl md:text-3xl font-black text-green-700" id="slipGross">₹0.00</span>
                     </div>
                 </div>
                 
@@ -172,7 +167,6 @@
                 </button>
             </div>
             
-            <!-- Initial State Placeholder -->
             <div id="placeholder" class="h-full flex flex-col items-center justify-center text-center p-12 text-slate-400 bg-white rounded-2xl border border-slate-100 shadow-sm border-dashed border-2">
                 <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-file-invoice-dollar text-4xl text-slate-300"></i>
@@ -190,7 +184,7 @@
         ];
         const pqpRates = [0, 820, 1640, 2460]; 
 
-        const format = (num) => new Intl.NumberFormat('en-IN').format(Math.round(num));
+        const format = (num) => new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
 
         function calculate() {
             const milBasic = parseFloat(document.getElementById('milBasic').value) || 0;
@@ -225,36 +219,36 @@
             }
 
             const finalBankBasic = scales[finalBasicIndex];
-            const specialPay = 0; 
-            const specialAllowance = Math.round(finalBankBasic * 0.265);
-            const transportAllowance = 850; 
             
-            const daBasis = finalBankBasic + specialPay + specialAllowance + transportAllowance + pqpAmount;
-            const bankDA = Math.round(daBasis * (bankDAPercent / 100));
+            // Fixed variables for CSA
+            const specialPay = 1970; 
+            const specialAllowance = finalBankBasic * 0.265;
+            const transportAllowance = 850; 
+            const hra = finalBankBasic * 0.1025;
+            
+            const daBasis = finalBankBasic + pqpAmount + specialPay + specialAllowance + transportAllowance;
+            const bankDA = daBasis * (bankDAPercent / 100);
 
-            const grossSalary = finalBankBasic + specialPay + specialAllowance + transportAllowance + pqpAmount + bankDA;
+            const grossSalary = finalBankBasic + pqpAmount + specialPay + specialAllowance + transportAllowance + bankDA + hra;
 
             // Update DOM
             document.getElementById('txtMilTotal').innerText = '₹' + format(milTotal);
             document.getElementById('txtTargetBasic').innerText = '₹' + format(targetBankBasic);
-            document.getElementById('txtStage').innerText = (finalBasicIndex + 1);
             
-            document.getElementById('slipBasic').innerText = '₹' + format(finalBankBasic);
-            document.getElementById('slipSpecialPay').innerText = '₹' + format(specialPay);
-            document.getElementById('slipSplAllow').innerText = '₹' + format(specialAllowance);
-            document.getElementById('slipTA').innerText = '₹' + format(transportAllowance);
+            document.getElementById('slipBasic').innerText = format(finalBankBasic);
+            document.getElementById('slipSplAllow').innerText = format(specialAllowance);
+            document.getElementById('slipTA').innerText = format(transportAllowance);
+            document.getElementById('slipHRA').innerText = format(hra);
             
             if (pqpAmount > 0) {
-                document.getElementById('pqpRow').classList.remove('hidden');
-                document.getElementById('pqpRow').classList.add('flex');
-                document.getElementById('slipPQP').innerText = '₹' + format(pqpAmount);
+                document.getElementById('pqpRow').style.display = 'flex';
+                document.getElementById('slipPQP').innerText = format(pqpAmount);
             } else {
-                document.getElementById('pqpRow').classList.add('hidden');
-                document.getElementById('pqpRow').classList.remove('flex');
+                document.getElementById('pqpRow').style.display = 'none';
             }
 
-            document.getElementById('slipDA').innerText = '₹' + format(bankDA);
-            document.getElementById('slipGross').innerText = '₹' + format(grossSalary);
+            document.getElementById('slipDA').innerText = format(bankDA);
+            document.getElementById('slipGross').innerText = format(grossSalary);
 
             // Show Slip
             document.getElementById('placeholder').classList.add('hidden');
